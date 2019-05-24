@@ -10,9 +10,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 ARG MAILROOM_REPO
-ENV MAILROOM_REPO=${MAILROOM_REPO:-nyaruka/mailroom
+ENV MAILROOM_REPO ${MAILROOM_REPO:-nyaruka/mailroom}
 ARG MAILROOM_VERSION
-ENV MAILROOM_VERSION=${MAILROOM_VERSION:-0.0.201}
+ENV MAILROOM_VERSION ${MAILROOM_VERSION:-0.0.201}
 
 RUN set -ex; \
     apt-get update; \
