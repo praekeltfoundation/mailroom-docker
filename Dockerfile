@@ -19,7 +19,7 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends wget; \
     rm -rf /var/lib/apt/lists/*; \
     \
-    wget -O mailroom.tar.gz "https://github.com/$MAILROOM_REPO/releases/download/v${MAILROOM_VERSION}/courier_${MAILROOM_VERSION}_linux_amd64.tar.gz"; \
+    wget -O mailroom.tar.gz "https://github.com/$MAILROOM_REPO/releases/download/v${MAILROOM_VERSION}/mailroom_${MAILROOM_VERSION}_linux_amd64.tar.gz"; \
     mkdir /usr/local/src/mailroom; \
     tar -xzC /usr/local/src/mailroom -f mailroom.tar.gz; \
     \
