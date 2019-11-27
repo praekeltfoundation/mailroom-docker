@@ -23,8 +23,9 @@ RUN set -ex; \
     mkdir /usr/local/src/mailroom; \
     tar -xzC /usr/local/src/mailroom -f mailroom.tar.gz; \
     \
-    # Just grab the binary and ignore the other packaged files
+    # Just grab the binary and the docs directory
     mv /usr/local/src/mailroom/mailroom /usr/local/bin/; \
+    mv /usr/local/src/mailroom/docs /usr/local/bin/; \
     rm -rf /usr/local/src/mailroom mailroom.tar.gz; \
     \
     apt-get purge -y --auto-remove wget
