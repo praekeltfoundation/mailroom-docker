@@ -8,7 +8,7 @@ ENV MAILROOM_VERSION ${MAILROOM_VERSION:-0.0.201}
 RUN apt update && apt install -y wget
 RUN wget -O mailroom.tar.gz "https://github.com/$MAILROOM_REPO/releases/download/v${MAILROOM_VERSION}/mailroom_${MAILROOM_VERSION}_linux_amd64.tar.gz"
 RUN mkdir mailroom
-RUN tar -xzC mailroom mailroom.tar.gz
+RUN tar -xzC mailroom -f mailroom.tar.gz
 
 
 FROM debian:bullseye-slim
