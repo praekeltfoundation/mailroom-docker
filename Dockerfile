@@ -6,7 +6,7 @@ ARG MAILROOM_VERSION
 ENV MAILROOM_VERSION ${MAILROOM_VERSION:-0.0.201}
 
 RUN apt update && apt install -y wget
-RUN wget -O mailroom.tar.gz "https://github.com/$MAILROOM_REPO/releases/download/v${MAILROOM_VERSION}/mailroom_${MAILROOM_VERSION}_linux_amd64.tar.gz"
+RUN wget -q -O mailroom.tar.gz "https://github.com/$MAILROOM_REPO/releases/download/v${MAILROOM_VERSION}/mailroom_${MAILROOM_VERSION}_linux_amd64.tar.gz"
 RUN mkdir mailroom
 RUN tar -xzC mailroom -f mailroom.tar.gz
 
@@ -23,7 +23,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build mailroom/mailroom /usr/local/bin
-COPY --from=build docs /
+COPY --from=build mailroom/docs /
 
 EXPOSE 8080
 
