@@ -27,8 +27,8 @@ COPY --from=build mailroom/docs /
 
 EXPOSE 8080
 
+RUN mkdir _storage && chown mailroom _storage
 USER mailroom
-RUN mkdir _storage
 
 ENTRYPOINT []
 CMD ["mailroom"]
