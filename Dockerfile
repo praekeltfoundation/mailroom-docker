@@ -28,6 +28,7 @@ COPY --from=build mailroom/docs /
 EXPOSE 8080
 
 USER mailroom
+RUN mkdir _storage
 
 ENTRYPOINT []
 CMD ["mailroom"]
