@@ -27,10 +27,8 @@ jobs:
           build-args: |
             MAILROOM_REPO=${{env.MAILROOM_REPO}}
             MAILROOM_VERSION=${{matrix.MAILROOM_VERSION}}
-      - name: Install Redis
-        uses: zhulik/redis-action@v1.0.0
-        with:
-          redis version: "3.2.4"
+      - name: Run Redis
+        run: docker run --name redis -d -p 6379:6379 redis:3.2.4
       - name: Install PostgreSQL
         uses: nyaruka/postgis-action@v2
         with:
