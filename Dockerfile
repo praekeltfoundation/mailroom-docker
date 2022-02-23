@@ -1,4 +1,17 @@
-FROM debian:stretch-slim
+FROM debian:bullseye-slim as build
+
+ARG MAILROOM_REPO
+ENV MAILROOM_REPO ${MAILROOM_REPO:-nyaruka/mailroom}
+ARG MAILROOM_VERSION
+ENV MAILROOM_VERSION ${MAILROOM_VERSION:-0.0.201}
+
+RUN apt update && apt install -y wget
+RUN wget -q -O mailroom.tar.gz "https://github.com/$MAILROOM_REPO/releases/download/v${MAILROOM_VERSION}/mailroom_${MAILROOM_VERSION}_linux_amd64.tar.gz"
+RUN mkdir mailroom
+RUN tar -xzC mailroom -f mailroom.tar.gz
+
+
+FROM debian:bullseye-slim
 
 RUN set -ex; \
     addgroup --system mailroom; \
@@ -9,29 +22,12 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
-ARG MAILROOM_REPO
-ENV MAILROOM_REPO ${MAILROOM_REPO:-nyaruka/mailroom}
-ARG MAILROOM_VERSION
-ENV MAILROOM_VERSION ${MAILROOM_VERSION:-0.0.201}
+COPY --from=build mailroom/mailroom /usr/local/bin
+COPY --from=build mailroom/docs /
 
-RUN set -ex; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends wget; \
-    rm -rf /var/lib/apt/lists/*; \
-    \
-    wget -O mailroom.tar.gz "https://github.com/$MAILROOM_REPO/releases/download/v${MAILROOM_VERSION}/mailroom_${MAILROOM_VERSION}_linux_amd64.tar.gz"; \
-    mkdir /usr/local/src/mailroom; \
-    tar -xzC /usr/local/src/mailroom -f mailroom.tar.gz; \
-    \
-    # Just grab the binary and the docs directory
-    mv /usr/local/src/mailroom/mailroom /usr/local/bin/; \
-    mv /usr/local/src/mailroom/docs /; \
-    rm -rf /usr/local/src/mailroom mailroom.tar.gz; \
-    \
-    apt-get purge -y --auto-remove wget
+EXPOSE 8090
 
-EXPOSE 8080
-
+RUN mkdir _storage && chown mailroom _storage
 USER mailroom
 
 ENTRYPOINT []
