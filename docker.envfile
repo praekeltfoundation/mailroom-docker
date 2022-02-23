@@ -1,2 +1,2 @@
-DATABASE_URL=postgresql://temba:temba@postgis/temba
-REDIS_URL=redis://redis:6379/0
+MAILROOM_DB=postgresql://temba:temba@postgis/temba
+MAILROOM_REDIS=redis://redis:6379/0
