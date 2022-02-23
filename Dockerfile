@@ -25,7 +25,7 @@ RUN apt-get update && \
 COPY --from=build mailroom/mailroom /usr/local/bin
 COPY --from=build mailroom/docs /
 
-EXPOSE 8080
+EXPOSE 8090
 
 RUN mkdir _storage && chown mailroom _storage
 USER mailroom

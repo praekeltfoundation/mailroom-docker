@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MAILROOM_REPO: nyaruka/mailroom
+      GREP_TIMEOUT: 60
     strategy:
       matrix:
         MAILROOM_VERSION: ["6.4.3"]
@@ -39,7 +40,10 @@ jobs:
             MAILROOM_VERSION=${{matrix.MAILROOM_VERSION}}
       - name: Test image
         run: |
-          docker run --name mailroom --env-file docker.envfile --link postgis --link redis --publish 8080:8080 --detach mailroom
+          docker run --name mailroom --env-file docker.envfile --link postgis --link redis --publish 8090:8090 --detach mailroom
+          timeout ${{env.GREP_TIMEOUT}} grep -m 1 'mailroom started' <(docker logs --flollow mailroom 2>&1)
+          curl http://localhost:8090/ | grep -m 1 'mailroom'
+          curl http://localhost:8090/ | grep -m 1 ${{matrix.MAILROOM_VERSION}}
       - name: debug outputs
         if: always()
         run: |
