@@ -1,2 +1,2 @@
-MAILROOM_DB=postgresql://temba:temba@postgis/temba
+MAILROOM_DB=postgres://temba:temba@postgis/temba
 MAILROOM_REDIS=redis://redis:6379/0
