@@ -1,3 +1,4 @@
 MAILROOM_DB=postgres://temba:temba@postgis/temba?sslmode=disable
 MAILROOM_REDIS=redis://redis:6379/0
 MAILROOM_LOG_LEVEL=debug
+MAILROOM_ADDRESS=0.0.0.0
