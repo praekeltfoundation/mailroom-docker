@@ -23,7 +23,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build mailroom/mailroom /usr/local/bin
-COPY --from=build mailroom/docs /
+COPY --from=build mailroom/docs /docs
 
 EXPOSE 8090
 
