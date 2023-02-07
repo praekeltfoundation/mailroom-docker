@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      MAILROOM_REPO: nyaruka/mailroom
+      MAILROOM_REPO: rapidpro/mailroom
       GREP_TIMEOUT: 60
     strategy:
       matrix:
